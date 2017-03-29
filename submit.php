@@ -1,6 +1,23 @@
 <?php 
 include("config.php");
+
+
+//
+
+if(isset($_POST['submit'])) {
+
+$sql = "INSERT INTO ordertable (order_id, productid, price,Items_bought,status,username)
+VALUES ('{$_POST['username']}','{$_POST['productid']}','{$_POST['cost']}','{$_POST['text']}','Pending','{$_POST['orderid']}')";
+if ($con->query($sql)) {
+	header("Location: sucesscustomer.php");
+       die();
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +49,7 @@ include("config.php");
 <h1> <kbd> 5. </kbd> Also type the order id number, it  is <?php $n1 = rand (1, 99); echo  "<mark>". $n1 ."</mark>"; ?> <p></p> So Please type it in the provided boxes to make our life way easier CAUSE WE ARE LAZYYYYY</h1>
 
 <div class="form-group">
-<form action="sucesscustomer.php" method="post">
+<form action="submit.php" method="post">
 
 
 <label> Username </label>
@@ -72,7 +89,7 @@ include("config.php");
 <label> List of Item(s) that were purchased </label>
 <textarea type="text" name="text"></textarea>
 
-<input type="submit"  class="btn btn-primary btn-lg" name="name" value="SUBMIT ORDER">  </br>
+<input type="submit"  class="btn btn-primary btn-lg" name="submit" value="SUBMIT ORDER">  </br>
 
 </div>
 
@@ -85,16 +102,7 @@ include("config.php");
 
 					
 
-<?php
-//inserting the submit form into the ordertable in the DB. 
-$sql = "INSERT INTO ordertable (order_id, productid, price,Items_bought,status,username)
-VALUES ('$_POST[username]','$_POST[productid]','$_POST[cost]','$_POST[text]','Pending','$_POST[orderid]')";
-if ($con->query($sql) === TRUE) {
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-?>
+
 
 </body>
 </html>
